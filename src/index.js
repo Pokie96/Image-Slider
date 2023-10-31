@@ -8,6 +8,8 @@ const indexButtons = [];
 
 let imageIndex = 0;
 
+let autoSlide = setInterval(nextImage, 10000);
+
 function nextImage(){
     let previousImage = images[imageIndex];
 
@@ -25,6 +27,9 @@ function nextImage(){
 
     previousImage.removeAttribute("data-active");
     currentImage.setAttribute("data-active", "");
+
+    clearInterval(autoSlide);
+    autoSlide = setInterval(nextImage, 10000);
 }
 
 function previousImage(){
@@ -44,6 +49,9 @@ function previousImage(){
 
     previousImage.removeAttribute("data-active");
     currentImage.setAttribute("data-active", "");
+
+    clearInterval(autoSlide);
+    autoSlide = setInterval(nextImage, 10000);
 }
 
 previousButton.addEventListener('click', previousImage);
@@ -62,6 +70,9 @@ function createIndexButtons(){
             removeAllActiveImages();
             images[i].setAttribute('data-active', '');
             imageIndex = i;
+
+            clearInterval(autoSlide);
+            autoSlide = setInterval(nextImage, 10000);
         })
 
         indexContainer.appendChild(indexButton);
@@ -88,3 +99,5 @@ function removeAllActiveImages(){
 }
 
 createIndexButtons();
+
+
